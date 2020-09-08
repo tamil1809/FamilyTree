@@ -11,7 +11,7 @@ namespace Iman_familytree {
 	public:
 		using date = boost::gregorian::date;
 
-		Person();
+		Person() = default;
 		Person(Name, genderTypes);
 
 		date getDeathdate() const;   //throws std::logic_error, person must be marked deceased
@@ -19,14 +19,14 @@ namespace Iman_familytree {
 
 	//variables
 	public:
-		Name m_name;
-		genderTypes m_gender;
-		std::string m_countryOrigin;
-		boost::gregorian::date m_birthday;
-		bool m_deceased;
+		Name m_name{};
+		genderTypes m_gender{};
+		std::string m_countryOrigin{};
+		boost::gregorian::date m_birthday{};
+		bool m_deceased{};
 		
 	private:
-		boost::gregorian::date m_deathday;
+		boost::gregorian::date m_deathday{};
 
 	};
 }

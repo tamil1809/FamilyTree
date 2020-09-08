@@ -114,7 +114,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FamilyMember.h" />
     <ClInclude Include="genderTypes.h" />
+    <ClInclude Include="KnownRelationship.h" />
     <ClInclude Include="Name.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
@@ -124,6 +126,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Relationship.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -148,6 +151,7 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FamilyMember.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -159,6 +163,7 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Relationship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">

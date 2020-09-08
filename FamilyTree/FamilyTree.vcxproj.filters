@@ -18,6 +18,12 @@
     <ClCompile Include="Person.cpp">
       <Filter>Objects\Person</Filter>
     </ClCompile>
+    <ClCompile Include="FamilyMember.cpp">
+      <Filter>Objects\FamilyMember</Filter>
+    </ClCompile>
+    <ClCompile Include="Relationship.cpp">
+      <Filter>Objects\Relationships</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -25,10 +31,19 @@
       <Filter>Objects\Person</Filter>
     </ClInclude>
     <ClInclude Include="Name.h">
-      <Filter>Objects\Helpers</Filter>
+      <Filter>Objects\Secondary</Filter>
     </ClInclude>
     <ClInclude Include="genderTypes.h">
-      <Filter>Objects\Helpers</Filter>
+      <Filter>Objects\Secondary</Filter>
+    </ClInclude>
+    <ClInclude Include="FamilyMember.h">
+      <Filter>Objects\FamilyMember</Filter>
+    </ClInclude>
+    <ClInclude Include="Relationship.h">
+      <Filter>Objects\Relationships</Filter>
+    </ClInclude>
+    <ClInclude Include="KnownRelationship.h">
+      <Filter>Objects\Secondary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,8 +82,14 @@
     <Filter Include="Objects\Person">
       <UniqueIdentifier>{91b7f6aa-61a8-4cb4-800a-abab970bd9c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects\Helpers">
+    <Filter Include="Objects\Secondary">
       <UniqueIdentifier>{3057ab43-ab71-492a-bdd4-2fbcc1d2a9ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\FamilyMember">
+      <UniqueIdentifier>{e0e5d856-65eb-4d3c-9063-5c4d119b62ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Relationships">
+      <UniqueIdentifier>{0ed5dd67-f3a6-496e-b86a-9acd7eb16ca6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

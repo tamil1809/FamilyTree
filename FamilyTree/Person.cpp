@@ -5,17 +5,12 @@
 namespace Iman_familytree {
 
 	Person::Person() :
-		m_name{},
-		m_gender{ genderTypes::Unkown },
-		m_birthday(), m_deathday(),
-		m_deceased{ nullptr }, m_countryOrigin{}
+		m_gender{ genderTypes::Unkown }
 	{}
 
 	Person::Person(Name t_name, genderTypes t_gender):
 		m_name{ t_name },
-		m_gender{ t_gender },
-		m_birthday(), m_deathday(),
-		m_deceased{ nullptr }, m_countryOrigin{}
+		m_gender{ t_gender }
 	{}
 
 	
