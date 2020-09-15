@@ -8,7 +8,7 @@ namespace Iman_familytree {
 		m_gender{ genderTypes::Unkown }
 	{}
 
-	Person::Person(Name t_name, genderTypes t_gender):
+	Person::Person(Name t_name, genderTypes t_gender = genderTypes::Unkown):
 		m_name{ t_name },
 		m_gender{ t_gender }
 	{}
@@ -20,7 +20,7 @@ namespace Iman_familytree {
 		else
 			throw std::logic_error("person still living");
 	}
-	void Person::setDeathdate(date t_deathday) {
+	void Person::setDeathdate(boost::gregorian::date t_deathday) {
 		if (m_deceased)
 			m_deathday = t_deathday;
 		else

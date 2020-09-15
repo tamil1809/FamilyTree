@@ -5,16 +5,20 @@
 
 namespace Iman_familytree {
 	
-	class FamilyMember : public Person
+	class FamilyMember
 	{
 	public:
 		FamilyMember() = delete;
-		explicit FamilyMember(Person);
+		explicit FamilyMember(Person);  //throws invalid argument Person must have name 
+
 
 	private:
-		std::vector<Relationship> m_children;
-		std::vector<Relationship> m_parent;
-		std::vector<Relationship> m_spouse;
+		Person m_person;
+		std::vector<Relationship> m_children{};
+		std::vector<Relationship> m_parent{};
+		std::vector<Relationship> m_spouse{};
+
+		bool initializePerson(const Person&);
 
 	};
 

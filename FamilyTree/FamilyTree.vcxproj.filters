@@ -24,6 +24,9 @@
     <ClCompile Include="Relationship.cpp">
       <Filter>Objects\Relationships</Filter>
     </ClCompile>
+    <ClCompile Include="Name.cpp">
+      <Filter>Objects\Secondary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

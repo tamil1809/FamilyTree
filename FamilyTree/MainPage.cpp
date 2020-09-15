@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "MainPage.h"
 #include "MainPage.g.cpp"
+#include "FamilyMember.h"
 
 using namespace winrt;
 using namespace Windows::UI::Xaml;
@@ -10,6 +11,7 @@ namespace winrt::FamilyTree::implementation
     MainPage::MainPage()
     {
         InitializeComponent();
+
     }
 
     int32_t MainPage::MyProperty()
