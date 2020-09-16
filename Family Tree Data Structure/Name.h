@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include "pch.h"
 
 
 namespace Iman_familytree {
@@ -7,7 +7,11 @@ namespace Iman_familytree {
 	struct Name
 	{
 	public:
-		std::string fullNameText();
+		Name();
+		Name(const char*);
+
+
+		const std::string fullNameText();
 
 
 		bool operator==(Name rhs);
@@ -21,8 +25,6 @@ namespace Iman_familytree {
 
 	private:
 		std::string fullName{};
-
-		void appendUntoFullName(std::string append);
 		
 	};
 

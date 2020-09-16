@@ -1,15 +1,15 @@
 #pragma once
-#include <string>
+#include "pch.h"
 #include "Name.h"
 #include "genderTypes.h"
-#include "boost/date_time/gregorian/gregorian_types.hpp"
+
 
 
 namespace Iman_familytree {
 	struct Person
 	{
 		Person();
-		explicit Person(Name, genderTypes);
+		Person(Name, genderTypes = genderTypes::Unkown);
 
 		boost::gregorian::date getDeathdate() const;   //throws std::logic_error, person must be marked deceased
 		void setDeathdate(boost::gregorian::date t_deathday);  //throws std::logic_error, person must be marked deceased

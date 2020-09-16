@@ -1,13 +1,13 @@
 #pragma once
+#include "pch.h"
 #include "Person.h"
-#include <vector>
 #include "Relationship.h"
 
 namespace Iman_familytree {
 	
 	class FamilyMember
 	{
-	public:
+	public: 
 		FamilyMember() = delete;
 		explicit FamilyMember(Person);  //throws invalid argument Person must have name 
 

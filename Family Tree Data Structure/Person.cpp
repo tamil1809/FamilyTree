@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Person.h"
-#include <stdexcept>
+
 
 namespace Iman_familytree {
 
@@ -8,7 +8,7 @@ namespace Iman_familytree {
 		m_gender{ genderTypes::Unkown }
 	{}
 
-	Person::Person(Name t_name, genderTypes t_gender = genderTypes::Unkown):
+	Person::Person(Name t_name, genderTypes t_gender):
 		m_name{ t_name },
 		m_gender{ t_gender }
 	{}

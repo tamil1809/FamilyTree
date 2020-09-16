@@ -1,7 +1,7 @@
 #pragma once
 #include "KnownRelationship.h"
 #include "Person.h"
-#include <memory>
+
 
 namespace Iman_familytree {
 	

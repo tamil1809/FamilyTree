@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FamilyTree", "FamilyTree\FamilyTree.vcxproj", "{9C509566-4BDD-484E-9840-CC5E15AB4020}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Family Tree Data Structure", "Family Tree Data Structure\Family Tree Data Structure.vcxproj", "{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -41,6 +43,18 @@ Global
 		{9C509566-4BDD-484E-9840-CC5E15AB4020}.Release|x86.ActiveCfg = Release|Win32
 		{9C509566-4BDD-484E-9840-CC5E15AB4020}.Release|x86.Build.0 = Release|Win32
 		{9C509566-4BDD-484E-9840-CC5E15AB4020}.Release|x86.Deploy.0 = Release|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Debug|ARM.ActiveCfg = Debug|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Debug|x64.ActiveCfg = Debug|x64
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Debug|x64.Build.0 = Debug|x64
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Debug|x86.Build.0 = Debug|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Release|ARM.ActiveCfg = Release|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Release|ARM64.ActiveCfg = Release|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Release|x64.ActiveCfg = Release|x64
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Release|x64.Build.0 = Release|x64
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Release|x86.ActiveCfg = Release|Win32
+		{39DD5CE4-D6BD-4BBD-9072-D2F1C77DE7BC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
