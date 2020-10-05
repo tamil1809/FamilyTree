@@ -13,7 +13,6 @@ namespace Iman_familytree {
 		m_gender{ t_gender }
 	{}
 
-	
 	boost::gregorian::date Person::getDeathdate() const {
 		if (m_deceased)
 			return m_deathday;

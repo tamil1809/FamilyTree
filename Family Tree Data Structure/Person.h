@@ -11,6 +11,7 @@ namespace Iman_familytree {
 		Person();
 		Person(Name, genderTypes = genderTypes::Unkown);
 
+
 		boost::gregorian::date getDeathdate() const;   //throws std::logic_error, person must be marked deceased
 		void setDeathdate(boost::gregorian::date t_deathday);  //throws std::logic_error, person must be marked deceased
 

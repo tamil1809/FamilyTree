@@ -7,13 +7,12 @@ namespace Iman_familytree {
 
 
 	Name::Name()
-	{
-	}
+	{}
 
 	Name::Name(const char* t_name)
 	{ 
 		std::string name{ t_name };
-		int numOfNames = std::count(name.begin(), name.end(), ' ');
+		size_t numOfNames = std::count(name.begin(), name.end(), ' ');
 
 		auto partfullname = [](std::string& l_name)->std::string {
 			std::string namePart;
@@ -59,10 +58,10 @@ namespace Iman_familytree {
 		return fullName;
 	}
 	
-	bool Name::operator==(Name rhs)
+	bool Name::operator==(Name& b)
 	{
 
-		if (this->fullNameText() == rhs.fullNameText())
+		if (this->fullNameText() == b.fullNameText())
 			return true;
 		else
 			return false;

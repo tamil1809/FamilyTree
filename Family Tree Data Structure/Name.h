@@ -11,10 +11,11 @@ namespace Iman_familytree {
 		Name(const char*);
 
 
+
 		const std::string fullNameText();
 
 
-		bool operator==(Name rhs);
+		bool operator==(Name &b);
 
 
 		//variables

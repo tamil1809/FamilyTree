@@ -9,4 +9,4 @@
 #include <vector>
 
 //boost
-#include "boost/date_time/gregorian/gregorian_types.hpp"
+#include "boost/date_time/gregorian/gregorian.hpp" //include all types plus i/o

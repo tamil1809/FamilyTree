@@ -5,8 +5,9 @@ namespace Iman_familytree {
 
 	enum class KnownRelationships
 	{
-		Spouse,
-		ParentChild
+		Child,
+		Parent,
+		Spouse
 	};
 
 }
