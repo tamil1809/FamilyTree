@@ -4,24 +4,63 @@
 #include "pch.h"
 #include "Person.h"
 #include "FamilyMember.h"
+#include "FamilyDB.h"
+
+
+
+
+
+//using std directives
+using std::cout;
+using std::endl;
+using std::cin;
+using std::string;
+using namespace std::chrono;
+
+//boost
+using namespace boost::gregorian;
+
+//DB
+#include <db_cxx.h>
+
+//family tree app
+using namespace Iman_familytree;
+typedef Relationship::RelationshipType RelationType;
+
+
+//Globals
+constexpr auto FAM_ENV_DIR = "C:/Users/Immanuel Ongweny/Documents/Projects/Family Tree/FamilyTree App/Family Tree Data Structure/DB Environment";
+constexpr auto FAM_DB_DIR = "C:/Users/Immanuel Ongweny/Documents/Projects/Family Tree/FamilyTree App/Family Tree Data Structure/DB Environment/Tests";
 
 void familyTreeTests();
+void concurrency_tests();
+void keygen_tests();
+void berkleydb_tests();
+void serialization();
 
-int main()
+auto output = [](Person person) {
+	std::cout << "given name: " << person.m_name.givenName << std::endl;
+	std::cout << "middle name: " << person.m_name.middleName << std::endl;
+	std::cout << "surname: " << person.m_name.surName << std::endl;
+	std::cout << "fullname: " << person.m_name.fullNameText() << std::endl;
+	std::cout << "Gender: " << static_cast<int>(person.m_gender) << std::endl;
+	std::cout << "Birthday: " << person.m_birthday << endl << std::endl;
+};
+
+int main(int argc, char* argv[], char* envp[])
 {
-	using std::cout;
-	using std::endl;
-	using std::cin;
-	using std::string;
+	//familyTreeTests();
+	//concurrency_tests();
+	//keygen_tests();
+	//berkleydb_tests();
 
-	familyTreeTests();
+	//cout << argv[0] << endl;
+
+	serialization();
+
 }
 
 void familyTreeTests() {
-	using std::cout;
-	using std::endl;
-	using std::cin;
-	using std::string;
 	using namespace Iman_familytree;
 	using namespace boost::gregorian;
 
@@ -45,12 +84,12 @@ void familyTreeTests() {
 	//output(*person1);
 
 
-	FamilyMember iman(&person);
-	FamilyMember jenn(person1);
+	FamilyMember iman(person);
+	FamilyMember jenn(*person1);
 	
 	auto& person2 = iman.getPerson();
 
-	person2->m_gender = genderTypes::Male;
+	person2->m_gender = Person::gender::Male;
 	person2->m_birthday = from_string("1994-9-03");
 
 
@@ -61,11 +100,11 @@ void familyTreeTests() {
 
 	for (size_t i = 0; i < 6; i++)
 	{
-		iman.addRelationship(KnownRelationships::Child, jenn.getPerson());
+		iman.addRelationship(RelationType::Child, jenn.getPerson());
 	}
 
 
-	auto& imanChild = iman.getRelationship(KnownRelationships::Child);
+	auto& imanChild = iman.getRelationship(RelationType::Child);
 	//auto jennParent = jenn.getRelationship(KnownRelationships::Parent);
 
 	
@@ -73,7 +112,7 @@ void familyTreeTests() {
 	int i{};
 	auto printRelationships = [&]() {
 		for (auto elem : imanChild) {
-			elem.m_person2.lock()->m_gender = genderTypes::Female;
+			elem.m_person2.lock()->m_gender = Person::gender::Female;
 			elem.m_person2.lock()->m_birthday = from_string("1994-11-05");
 			output(*elem.m_person2.lock());
 		}
@@ -81,7 +120,7 @@ void familyTreeTests() {
 
 	printRelationships();
 
-	iman.deleteRelationship(KnownRelationships::Child, jenn.getPerson());
+	iman.deleteRelationship(RelationType::Child, jenn.getPerson());
 
 
 	printRelationships();
@@ -98,5 +137,146 @@ void familyTreeTests() {
 
 	std::cin.get();
 
+}
+
+void concurrency_tests()
+{
+	FamilyMember member1(Person("immanuel Ongweny"));
+	FamilyMember member2(Person("Jennifer L Zaki"));
+
+	try
+	{
+		auto f = std::async(std::launch::async, &FamilyMember::addRelationship, &member1, RelationType::Spouse, member2.getPerson());
+		std::this_thread::sleep_for(std::chrono::microseconds(521));
+
+		//f.get();
+		auto relation = member1.getRelationship(RelationType::Spouse);
+	
+		cout << relation[0].m_person2.lock()->m_name.fullNameText() << endl;
+
+	}
+	catch (const std::exception& e)
+	{
+		cout << e.what() << endl;
+	}
+	catch (...) {
+		cout << "WTF" << endl;
+	}
+
+	
+
+
+
+
+}
+
+void keygen_tests()
+{
+
+	auto iman_birth = day_clock::local_day() - date(1994, 9, 03);
+	auto  age = iman_birth.days() / 365;
+	cout << age << endl;
+
+	string iman = "Immanuel James Ongweny";
+	string imanCap = "Immananuel";
+	string andrew{ "Andrew James Ongweny" };
+	string jenn = "Jennifer L zaki";
+
+	cout << "iman / age: \t" << std::hash<string>{}(iman) / age << endl;
+	cout << "iman: \t\t" << std::hash<string>{}(iman) << endl;
+	//cout << std::hash<string>{}(imanCap) << endl;
+	//cout << std::hash<string>{}(andrew) << endl;
+	cout << std::hash<string>{}(jenn) << endl;
+}
+
+void berkleydb_tests()
+{
+	
+	const char* envHome{ nullptr };
+	DbEnv* famEnv{ nullptr };
+	Db* famDb{ nullptr };
+
+	try
+	{
+		FamilyDB testDb{};
+
+		famEnv = testDb.getEnv();
+		famDb = testDb.getDB();
+
+		famEnv->add_data_dir(FAM_ENV_DIR);
+		famEnv->add_data_dir(FAM_DB_DIR);
+		famEnv->set_create_dir(FAM_DB_DIR);
+		famEnv->open(FAM_ENV_DIR, DB_INIT_CDB | DB_INIT_MPOOL | DB_CREATE, 0);
+
+		famDb->open(nullptr, "test.db", nullptr, DB_BTREE, DB_CREATE, 0);
+
+		
+		famEnv->get_home(&envHome);
+		cout << famEnv->version(0, 0, 0) << endl;
+		cout << envHome << endl << endl; //tree db
+
+
+		famDb->get_create_dir(&envHome);
+		if (envHome)
+			cout << "DB DIR: " << envHome << endl << endl; //tree db
+		else
+			cout << "Dir Null" << endl;
+
+
+	}
+	catch (DbException& e)
+	{
+		cout << "Db exception: "<<e.what() << endl;
+	}
+	catch (std::exception e) {
+		cout << e.what() << endl;
+	}
+
+
+
+}
+
+void serialization()
+{
+		std::stringstream inOutBuf(std::ios_base::binary | std::ios_base::in | std::ios_base::out);
+	std::ostringstream outBuf(std::ios_base::binary | std::ios_base::out);
+	std::istringstream inBuf(std::ios_base::binary | std::ios_base::in);
+
+	std::stringbuf boostBuf(std::ios_base::binary | std::ios_base::in | std::ios_base::out);
+	//int a{10};
+	//unsigned b{};
+
+	//std::vector<int> a{ 10 }, b{};;
+
+
+	FamilyMember iman(Person("immanuel james ongweny"));
+	auto& person2 = iman.getPerson();
+	person2->m_gender = Person::gender::Male;
+	person2->m_birthday = from_string("1994-9-03");
+
+	output(*iman.getPerson());
+
+	FamilyMember jenn{};
+	
+	try
+	{
+		{
+			boost::archive::binary_oarchive outarch(boostBuf);
+			outarch << iman;
+			
+		}
+
+		{
+			boost::archive::binary_iarchive inarch(boostBuf);
+			inarch >> jenn;
+			output(*jenn.getPerson());
+		}
+	}
+	catch (const std::exception& e)
+	{
+		cout << e.what() << endl;
+	}
+
+	output(*jenn.getPerson());
 }
 

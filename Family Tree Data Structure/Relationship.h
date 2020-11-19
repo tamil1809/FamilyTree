@@ -1,5 +1,5 @@
 #pragma once
-#include "KnownRelationship.h"
+
 #include "Person.h"
 
 
@@ -7,7 +7,14 @@ namespace Iman_familytree {
 	
 	struct Relationship
 	{
-		KnownRelationships m_type{};
+		enum class RelationshipType
+		{
+			Child,
+			Parent,
+			Spouse
+		};
+
+		RelationshipType m_type{};
 		std::weak_ptr<Person> m_person1{};
 		std::weak_ptr<Person> m_person2{};
 

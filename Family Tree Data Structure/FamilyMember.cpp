@@ -4,10 +4,10 @@
 
 namespace Iman_familytree {
 
-	FamilyMember::FamilyMember(Person* t_person) {
+	FamilyMember::FamilyMember(Person t_person) {
 
-		if (t_person != nullptr && !t_person->m_name.fullNameText().empty())
-			m_person = std::make_shared<Person>(*t_person);
+		if (!t_person.m_name.fullNameText().empty())
+			m_person = std::make_shared<Person>(t_person);
 		else 
 			throw std::invalid_argument("Please provides members name");
 		
@@ -18,22 +18,22 @@ namespace Iman_familytree {
 		return m_person;
 	}
 
-	const std::vector<Relationship>& FamilyMember::getRelationship(KnownRelationships t_relate) const
+	const std::vector<Relationship>& FamilyMember::getRelationship(rel_Type t_relate) const
 	{
 		switch (t_relate)
 		{
-		case KnownRelationships::Child:
+		case rel_Type::Child:
 			return m_children;
-		case KnownRelationships::Parent:
+		case rel_Type::Parent:
 			return m_parent;
-		case KnownRelationships::Spouse:
+		case rel_Type::Spouse:
 			return m_spouse;
 		default:
 			break;
 		}
 	}
 
-	void FamilyMember::addRelationship(const KnownRelationships t_relate, const std::shared_ptr<Person>& t_person)
+	void FamilyMember::addRelationship(const rel_Type t_relate, const std::shared_ptr<Person>& t_person)
 	{
 		if (t_person != nullptr && !t_person->m_name.fullNameText().empty()) {
 			Relationship relation;
@@ -42,15 +42,15 @@ namespace Iman_familytree {
 			relation.m_person2 = t_person;
 			switch (relation.m_type)
 			{ 
-			case KnownRelationships::Child:
+			case rel_Type::Child:
 				if(!RelationshipExists(m_children,relation))
 					m_children.push_back(relation);
 				break;
-			case KnownRelationships::Parent:
+			case rel_Type::Parent:
 				if (!RelationshipExists(m_parent, relation))
 					m_parent.push_back(relation);
 				break;
-			case KnownRelationships::Spouse:
+			case rel_Type::Spouse:
 				if (!RelationshipExists(m_spouse, relation))
 					m_spouse.push_back(relation);
 				break;
@@ -60,7 +60,7 @@ namespace Iman_familytree {
 		}
 	}
 
-	void FamilyMember::deleteRelationship(const KnownRelationships t_relate, const std::shared_ptr<Person>& t_person)
+ 	void FamilyMember::deleteRelationship(const rel_Type t_relate, const std::shared_ptr<Person>& t_person)
 	{
 		if (t_person != nullptr && !t_person->m_name.fullNameText().empty()) {
 			
@@ -71,13 +71,13 @@ namespace Iman_familytree {
 
 			switch (t_relate)
 			{
-			case KnownRelationships::Child:
+			case rel_Type::Child:
 				deleteFromList(m_children, relation);
 				break;
-			case KnownRelationships::Parent:
+			case rel_Type::Parent:
 				deleteFromList(m_parent, relation);
 				break;
-			case KnownRelationships::Spouse:
+			case rel_Type::Spouse:
 				deleteFromList(m_spouse, relation);
 				break;
 			default:

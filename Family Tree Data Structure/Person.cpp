@@ -8,7 +8,7 @@ namespace Iman_familytree {
 		m_gender{ genderTypes::Unkown }
 	{}
 
-	Person::Person(Name t_name, genderTypes t_gender):
+	Person::Person(Name t_name, gender t_gender):
 		m_name{ t_name },
 		m_gender{ t_gender }
 	{}

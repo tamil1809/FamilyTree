@@ -30,6 +30,9 @@
     <ClCompile Include="FamilyMember.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FamilyDB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Name.h">
@@ -44,14 +47,17 @@
     <ClInclude Include="FamilyMember.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="genderTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KnownRelationship.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FamilyDB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tree_serializations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
