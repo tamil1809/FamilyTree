@@ -52,11 +52,11 @@ int main(int argc, char* argv[], char* envp[])
 	//familyTreeTests();
 	//concurrency_tests();
 	//keygen_tests();
-	//berkleydb_tests();
-
+	berkleydb_tests();
+	//serialization();
 	//cout << argv[0] << endl;
 
-	serialization();
+
 
 }
 
@@ -193,9 +193,14 @@ void berkleydb_tests()
 {
 	
 	const char* envHome{ nullptr };
+
 	DbEnv* famEnv{ nullptr };
 	Db* famDb{ nullptr };
 
+	string name{ "immanuel" };
+	string birthday{ "September 3rd" };
+
+	Dbt key(&name, sizeof(name)), data(&birthday, sizeof(birthday));
 	try
 	{
 		FamilyDB testDb{};
@@ -210,6 +215,7 @@ void berkleydb_tests()
 
 		famDb->open(nullptr, "test.db", nullptr, DB_BTREE, DB_CREATE, 0);
 
+		famDb->put(nullptr, &key, &data, 0);
 		
 		famEnv->get_home(&envHome);
 		cout << famEnv->version(0, 0, 0) << endl;
@@ -238,16 +244,7 @@ void berkleydb_tests()
 
 void serialization()
 {
-		std::stringstream inOutBuf(std::ios_base::binary | std::ios_base::in | std::ios_base::out);
-	std::ostringstream outBuf(std::ios_base::binary | std::ios_base::out);
-	std::istringstream inBuf(std::ios_base::binary | std::ios_base::in);
-
 	std::stringbuf boostBuf(std::ios_base::binary | std::ios_base::in | std::ios_base::out);
-	//int a{10};
-	//unsigned b{};
-
-	//std::vector<int> a{ 10 }, b{};;
-
 
 	FamilyMember iman(Person("immanuel james ongweny"));
 	auto& person2 = iman.getPerson();
@@ -257,7 +254,7 @@ void serialization()
 	output(*iman.getPerson());
 
 	FamilyMember jenn{};
-	
+
 	try
 	{
 		{

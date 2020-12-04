@@ -13,10 +13,14 @@ namespace Iman_familytree {
 		
 	}
 
+#ifndef NDEBUG
 	const std::shared_ptr<Person>& FamilyMember::getPerson()
 	{
 		return m_person;
 	}
+#endif // DEBUG
+
+
 
 	const std::vector<Relationship>& FamilyMember::getRelationship(rel_Type t_relate) const
 	{
@@ -29,7 +33,7 @@ namespace Iman_familytree {
 		case rel_Type::Spouse:
 			return m_spouse;
 		default:
-			break;
+			return std::vector<Relationship>{};
 		}
 	}
 

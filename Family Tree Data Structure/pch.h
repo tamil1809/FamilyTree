@@ -22,6 +22,7 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 //boost/Serialization
+#include <boost/date_time/gregorian/greg_serialize.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/weak_ptr.hpp>
 #include <boost/serialization/vector.hpp>

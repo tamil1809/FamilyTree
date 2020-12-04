@@ -27,7 +27,7 @@ namespace Iman_familytree {
 		//Serialize
 		template<class Archive>
 		inline void serialize(Archive& ar, const unsigned int file_version){
-			ar& m_person& m_children& m_parent& m_spouse;
+			ar & m_person & m_children & m_parent& m_spouse;
 		}
 
 	private:
@@ -37,7 +37,6 @@ namespace Iman_familytree {
 		std::vector<Relationship> m_spouse{};
 
 	private:
-
 		//helpers function
 		bool RelationshipExists(std::vector<Relationship>& relation_list, const Relationship& t_relation);
 		void deleteFromList(std::vector<Relationship>&, const Relationship&);

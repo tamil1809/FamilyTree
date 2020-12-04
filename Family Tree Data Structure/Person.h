@@ -20,8 +20,8 @@ namespace Iman_familytree {
 		Person(Name, gender = gender::Unkown);
 
 
-		boost::gregorian::date getDeathdate() const;   //throws std::logic_error, person must be marked deceased
-		void setDeathdate(boost::gregorian::date t_deathday);  //throws std::logic_error, person must be marked deceased
+		//boost::gregorian::date getDeathdate() const;   //throws std::logic_error, person must be marked deceased
+		//void setDeathdate(boost::gregorian::date t_deathday);  //throws std::logic_error, person must be marked deceased
 
 	//variables
 	public:
@@ -29,9 +29,6 @@ namespace Iman_familytree {
 		gender m_gender{};
 		std::string m_countryOrigin{};
 		boost::gregorian::date m_birthday{};
-		bool m_deceased{};
-		
-	protected:
 		boost::gregorian::date m_deathday{};
 
 	};
