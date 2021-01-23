@@ -10,7 +10,7 @@ namespace Iman_familytree {
 	{
 		
 	public: 
-		typedef Relationship::RelationshipType rel_Type;
+		using rel_type = Relationship::RelationshipType;
 
 		FamilyMember() :m_person{}, m_children{}, 
 			m_parent{}, m_spouse{}{};
@@ -18,16 +18,16 @@ namespace Iman_familytree {
 
 		//getters
 		const std::shared_ptr<Person>& getPerson();
-		const std::vector<Relationship>& getRelationship(rel_Type) const;
+		const std::vector<Relationship>& getRelationship(rel_type) const;
 		
 		//operations
-		void addRelationship(rel_Type, const std::shared_ptr<Person>&);
-		void deleteRelationship(rel_Type, const std::shared_ptr<Person>&);
+		void addRelationship(rel_type, const std::shared_ptr<Person>&);
+		void deleteRelationship(rel_type, const std::shared_ptr<Person>&);
 
 		//Serialize
 		template<class Archive>
 		inline void serialize(Archive& ar, const unsigned int file_version){
-			ar & m_person & m_children & m_parent& m_spouse;
+			ar & m_person & m_children & m_parent & m_spouse;
 		}
 
 	private:

@@ -13,8 +13,8 @@ namespace Iman_familytree {
 			Male,
 			Female
 		};
-		typedef genderTypes gender;
-
+		using gender = genderTypes;
+		;
 
 		Person();
 		Person(Name, gender = gender::Unkown);

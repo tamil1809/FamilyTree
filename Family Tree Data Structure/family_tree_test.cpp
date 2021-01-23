@@ -52,8 +52,8 @@ int main(int argc, char* argv[], char* envp[])
 	//familyTreeTests();
 	//concurrency_tests();
 	//keygen_tests();
-	berkleydb_tests();
-	//serialization();
+	//berkleydb_tests();
+	serialization();
 	//cout << argv[0] << endl;
 
 
@@ -105,7 +105,7 @@ void familyTreeTests() {
 
 
 	auto& imanChild = iman.getRelationship(RelationType::Child);
-	//auto jennParent = jenn.getRelationship(KnownRelationships::Parent);
+	//auto& jennParent = jenn.getRelationship(RelationType::Parent);
 
 	
 
@@ -246,34 +246,94 @@ void serialization()
 {
 	std::stringbuf boostBuf(std::ios_base::binary | std::ios_base::in | std::ios_base::out);
 
-	FamilyMember iman(Person("immanuel james ongweny"));
-	auto& person2 = iman.getPerson();
-	person2->m_gender = Person::gender::Male;
-	person2->m_birthday = from_string("1994-9-03");
-
-	output(*iman.getPerson());
-
-	FamilyMember jenn{};
 
 	try
 	{
 		{
+
+			FamilyMember iman(Person("immanuel james ongweny"));
+			FamilyMember daughter(Person("Caliope Ongweny"));
+
+			iman.addRelationship(RelationType::Child, daughter.getPerson());
+			auto& person2 = iman.getPerson();
+			person2->m_gender = Person::gender::Male;
+			person2->m_birthday = from_string("1994-9-03");
+
+
+			auto& i_daughter_list = iman.getRelationship(RelationType::Child);
+			cout << "Iman daughter address: " << i_daughter_list[0].m_person2.lock().get() << endl;
+			cout << "Iman Person address: " << iman.getPerson().get() << endl;
+			cout << "Iman Person use Count: " << iman.getPerson().use_count() << endl;
+
+			output(*iman.getPerson());
+			output(*i_daughter_list[0].m_person1.lock());
+			output(*i_daughter_list[0].m_person2.lock());
+			cout << endl << endl;
+
+		
 			boost::archive::binary_oarchive outarch(boostBuf);
-			outarch << iman;
+			outarch << iman << daughter;
+
+	
+
 			
 		}
 
+		FamilyMember jenn{}; 
+		FamilyMember daughter2{};
+
 		{
 			boost::archive::binary_iarchive inarch(boostBuf);
-			inarch >> jenn;
-			output(*jenn.getPerson());
+			inarch >> jenn >> daughter2;
 		}
+
+		{
+
+			cout << "Jenn Person address: " << jenn.getPerson().get() << endl;
+			cout << "Jenn Person use Count: " << jenn.getPerson().use_count() << endl;
+			output(*jenn.getPerson());
+			cout << endl;
+
+			auto& j_daughter_list = jenn.getRelationship(RelationType::Child);
+
+			cout << endl;
+
+			output(*j_daughter_list[0].m_person1.lock());
+
+			cout << endl << endl;
+
+			cout << daughter2.getPerson().get() << endl;
+			cout << "Jenn daughter address: " << j_daughter_list[0].m_person2.lock().get() << endl;
+			output(*j_daughter_list[0].m_person2.lock());
+
+			cout << "Jenn Person use Count: " << jenn.getPerson().use_count() << endl;
+		}
+		/*{
+			std::shared_ptr<std::vector<string>> share_test = std::make_shared<std::vector<string>>();
+			share_test->push_back("testing serialization of shared smart pointers");
+			std::weak_ptr<std::vector<string>> weak_test{ share_test };
+
+			cout << "Share Ptr Address: " << share_test.get() << "\n Weak Ptr Address: " << weak_test.lock().get() << endl;
+
+			boost::archive::binary_oarchive outarch(boostBuf);
+			outarch << share_test << weak_test;
+		}
+
+		{
+			std::shared_ptr<std::vector<string>> share_test2{};
+			std::weak_ptr<std::vector<string>> weak_test2{};
+			
+			boost::archive::binary_iarchive inarch(boostBuf);
+			inarch >> share_test2 >> weak_test2;
+
+			cout << "Share Ptr Address: " << share_test2.get() << "\n Weak Ptr Address: " << weak_test2.lock().get() << endl;
+		}*/
 	}
 	catch (const std::exception& e)
 	{
 		cout << e.what() << endl;
 	}
 
-	output(*jenn.getPerson());
+	//output(*jenn.getPerson());
 }
 
